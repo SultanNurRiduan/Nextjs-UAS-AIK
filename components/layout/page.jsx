@@ -1,14 +1,13 @@
 "use client";
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
-import Navbar from './navbar/navbar';
-import Footer from './footer';
-import Header from './Header';
-import BackButton from '../elements/BackButton';
-import LandingPage from './LandingPage';
-import NAVBAR_LINKS from '@/constants/navbar'; 
-import ScrollToTop from '../elements/ScrollToTop';
+import React from "react";
+import { usePathname } from "next/navigation";
+import Navbar from "./navbar/navbar";
+import Footer from "./footer";
+import Header from "./Header";
+import LandingPage from "./LandingPage";
+import NAVBAR_LINKS from "@/constants/navbar";
+import ScrollToTop from "../elements/ScrollToTop";
 
 const AppLayout = ({ children }) => {
   const pathname = usePathname();
@@ -32,12 +31,10 @@ const AppLayout = ({ children }) => {
       <Navbar />
       <LandingPage title={pageTitle} />
       <div className="px-25 py-5">
-        
         <main>{children}</main>
-        <BackButton />
       </div>
       <Footer />
-      <ScrollToTop/>
+      <ScrollToTop />
     </div>
   );
 };

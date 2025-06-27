@@ -1,15 +1,37 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import ItidalData from "@/constants/itidal";
-import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+// Animasi reusable
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: custom * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const Itidal = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
-    
-      {ItidalData.map((item) => (
-        <div key={item.id} className="pb-4">
+      {ItidalData.map((item, i) => (
+        <motion.div
+          key={item.id}
+          custom={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInVariant}
+          className="pb-4"
+        >
           {/* Jika ada gambar */}
           {item.gambar && (
             <img
@@ -57,11 +79,25 @@ const Itidal = () => {
                 ))}
               </ul>
             )}
-        </div>
+        </motion.div>
       ))}
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+
+      {/* Tombol bawah dengan animasi */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.3, duration: 0.6 },
+          },
+        }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };

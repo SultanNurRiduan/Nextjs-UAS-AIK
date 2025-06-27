@@ -1,25 +1,46 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import AlFatihah from "@/constants/alfatihah";
-import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+// Variants reusable
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: custom * 0.2,
+      duration: 0.7,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const AlFatihahPage = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
       <div className="pb-4">
-        {AlFatihah.map((item) => (
-          <div key={item.id} className="space-y-2 rounded-xl">
+        {AlFatihah.map((item, i) => (
+          <motion.div
+            key={item.id}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInVariant}
+            className="space-y-2 rounded-xl"
+          >
             <h2 className="text-xl font-semibold mb-2">{item.judul}</h2>
 
-            {/* Jika deskripsi adalah string */}
             {typeof item.deskripsi === "string" && (
               <p className="text-gray-700 dark:text-gray-300 border-b border-blue-500 pb-4">
                 {item.deskripsi}
               </p>
             )}
 
-            {/* Jika deskripsi adalah array of string */}
             {Array.isArray(item.deskripsi) &&
               typeof item.deskripsi[0] === "string" && (
                 <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 border-b border-blue-500 pb-4">
@@ -29,7 +50,6 @@ const AlFatihahPage = () => {
                 </ul>
               )}
 
-            {/* Jika deskripsi adalah array of object (ayat atau dalil) */}
             {Array.isArray(item.deskripsi) &&
               typeof item.deskripsi[0] === "object" && (
                 <ul className="space-y-4 mt-4">
@@ -57,12 +77,25 @@ const AlFatihahPage = () => {
                   ))}
                 </ul>
               )}
-          </div>
+          </motion.div>
         ))}
       </div>
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.2, duration: 0.6, ease: "easeOut" },
+          },
+        }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };

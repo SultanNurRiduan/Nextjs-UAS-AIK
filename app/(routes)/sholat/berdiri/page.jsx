@@ -1,13 +1,37 @@
 "use client";
 import React from "react";
+import { motion } from "framer-motion";
 import BerdiriBilaMampu from "@/constants/berdiribilamampu";
 import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+// Variants animasi reusable
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: custom * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const Berdiri = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-4">
-      {BerdiriBilaMampu.map((item) => (
-        <div key={item.id} className="border-b border-blue-500 pb-4">
+      {BerdiriBilaMampu.map((item, i) => (
+        <motion.div
+          key={item.id}
+          custom={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInVariant}
+          className="border-b border-blue-500 pb-4"
+        >
           <h2 className="text-xl font-bold mb-2">{item.judul}</h2>
 
           {/* Jika ada gambar */}
@@ -37,7 +61,7 @@ const Berdiri = () => {
           {/* Jika deskripsi array berisi objek dalil */}
           {Array.isArray(item.deskripsi) &&
             typeof item.deskripsi[0] === "object" && (
-              <div className="space-y-2">
+              <div className="space-y-2 mt-4">
                 {item.deskripsi.map((dalil, idx) => (
                   <div
                     key={idx}
@@ -58,11 +82,24 @@ const Berdiri = () => {
                 ))}
               </div>
             )}
-        </div>
+        </motion.div>
       ))}
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.3, duration: 0.6, ease: "easeOut" },
+          },
+        }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };

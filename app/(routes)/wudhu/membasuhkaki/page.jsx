@@ -1,16 +1,37 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import MembasuhKakiData from "@/constants/membasuhkaki";
-import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const MembasuhKaki = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
       <div className="pb-4">
-        {MembasuhKakiData.map((item) => (
-          <div key={item.id} className="space-y-2 rounded-xl">
-            {/* Gambar jika ada */}
+        {MembasuhKakiData.map((item, i) => (
+          <motion.div
+            key={item.id}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+            className="space-y-2 rounded-xl"
+          >
             {item.gambar && (
               <img
                 src={item.gambar}
@@ -21,16 +42,14 @@ const MembasuhKaki = () => {
 
             <h2 className="text-xl font-semibold mb-2">{item.judul}</h2>
 
-            {/* Deskripsi sebagai list */}
             {Array.isArray(item.deskripsi) && (
-              <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 border-b border-blue-500">
+              <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 border-b border-blue-500 pb-4">
                 {item.deskripsi.map((desc, index) => (
                   <li key={index}>{desc}</li>
                 ))}
               </ul>
             )}
 
-            {/* Dalil jika ada */}
             {item.dalil && (
               <div className="bg-blue-100 dark:bg-blue-900 p-4 mt-4 rounded-md shadow-sm">
                 {item.dalil.arab && (
@@ -55,12 +74,17 @@ const MembasuhKaki = () => {
                 )}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };

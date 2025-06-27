@@ -1,15 +1,38 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import DoaIftitah from "@/constants/iftitah";
-import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+// Variabel animasi reusable
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (custom = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: custom * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const Iftitah = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
       <div className="pb-4">
-        {DoaIftitah.map((item) => (
-          <div key={item.id} className="space-y-2 rounded-xl">
+        {DoaIftitah.map((item, i) => (
+          <motion.div
+            key={item.id}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInVariant}
+            className="space-y-2 rounded-xl"
+          >
             {item.gambar && (
               <img
                 src={item.gambar}
@@ -20,14 +43,14 @@ const Iftitah = () => {
 
             <h2 className="text-xl font-semibold mb-2">{item.judul}</h2>
 
-            {/* Jika deskripsi adalah string */}
+            {/* Deskripsi string */}
             {typeof item.deskripsi === "string" && (
               <p className="text-gray-700 dark:text-gray-300 border-b border-blue-500">
                 {item.deskripsi}
               </p>
             )}
 
-            {/* Jika deskripsi adalah array of string */}
+            {/* Deskripsi: array of string */}
             {Array.isArray(item.deskripsi) &&
               typeof item.deskripsi[0] === "string" && (
                 <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 border-b border-blue-500">
@@ -37,7 +60,7 @@ const Iftitah = () => {
                 </ul>
               )}
 
-            {/* Jika deskripsi adalah array of object (dalil/dzikir) */}
+            {/* Deskripsi: array of object */}
             {Array.isArray(item.deskripsi) &&
               typeof item.deskripsi[0] === "object" && (
                 <ul className="space-y-4 mt-4">
@@ -65,12 +88,26 @@ const Iftitah = () => {
                   ))}
                 </ul>
               )}
-          </div>
+          </motion.div>
         ))}
       </div>
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+
+      {/* Tombol Bawah dengan animasi */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.3, duration: 0.6, ease: "easeOut" },
+          },
+        }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };

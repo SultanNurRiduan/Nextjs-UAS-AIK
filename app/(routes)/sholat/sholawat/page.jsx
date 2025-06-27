@@ -1,15 +1,39 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import MembacaSholawat from "@/constants/sholawat";
-import NextButton from "@/components/elements/NextButton";
+import ButtonBottom from "@/components/elements/ButtonBottom";
+
+// Variants untuk animasi scroll
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  }),
+};
 
 const Sholawt = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
       <div className="pb-4">
-        {MembacaSholawat.map((item) => (
-          <div key={item.id} className="rounded-xl space-y-2">
+        {MembacaSholawat.map((item, i) => (
+          <motion.div
+            key={item.id}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeInVariant}
+            className="rounded-xl space-y-2"
+          >
+            {/* Gambar */}
             {item.gambar && (
               <img
                 src={item.gambar}
@@ -18,8 +42,10 @@ const Sholawt = () => {
               />
             )}
 
+            {/* Judul */}
             <h2 className="text-xl font-semibold mb-2">{item.judul}</h2>
 
+            {/* Deskripsi atau Doa */}
             {item.deskripsi.map((item, index) => {
               if (item.teks) {
                 return (
@@ -55,12 +81,19 @@ const Sholawt = () => {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         ))}
       </div>
-      <div className="flex justify-end mt-8">
-        <NextButton/>
-      </div>
+
+      {/* Tombol bawah */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
+        <ButtonBottom />
+      </motion.div>
     </div>
   );
 };
