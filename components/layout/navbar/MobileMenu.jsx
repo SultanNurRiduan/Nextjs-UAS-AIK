@@ -39,7 +39,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="fixed top-0 right-0 h-auto w-72 bg-white rounded-l-2xl shadow-lg md:hidden z-[999999] pointer-events-auto"
     >
-      <div className="p-6 overflow-y-auto h-full space-y-4">
+      <div className="p-6 overflow-y-auto h-auto space-y-4">
         {NAVBAR_LINKS.map((item, i) => (
           <div key={i}>
             {!item.SubWudhu ? (
