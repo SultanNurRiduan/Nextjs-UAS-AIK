@@ -18,7 +18,7 @@ const CartSubMenu = () => {
           🙌
         </span>
       </h1>
-      <div className="flex justify-center gap-5 md:gap-30 p-5">
+      <div className="flex justify-center gap-5 md:gap-30 p-5 flex-wrap">
         {/* Kartu Sholat */}
         <Link
           href="/sholat/rukun"
@@ -26,7 +26,7 @@ const CartSubMenu = () => {
           style={{ perspective: "1000px" }}
         >
           <div
-            className="w-52 h-64 relative transition-transform duration-700 group-hover:rotate-y-180"
+            className="w-40 h-56 md:w-52 md:h-64 relative transition-transform duration-700 group-hover:rotate-y-180"
             style={{ transformStyle: "preserve-3d" }}
           >
             {/* Sisi Depan */}
@@ -60,12 +60,12 @@ const CartSubMenu = () => {
           style={{ perspective: "1000px" }}
         >
           <div
-            className="w-52 h-64 relative transition-transform duration-700 group-hover:rotate-y-180"
+            className="w-40 h-56 md:w-52 md:h-64 relative transition-transform duration-700 group-hover:rotate-y-180"
             style={{ transformStyle: "preserve-3d" }}
           >
             {/* Sisi Depan */}
             <div
-              className="absolute w-full h-full rounded-xl overflow-hidden shadow-lg bg-cover bg-center bg-blue-300 text-white text-shadow-black font-bold text-xl flex items-end p-4"
+              className="absolute w-full h-full rounded-xl overflow-hidden shadow-lg bg-cover bg-blue-300 bg-center text-white text-shadow-black font-bold text-xl flex items-end p-4"
               style={{
                 backgroundImage: 'url("/images/membasuh-tangan.png")',
                 backfaceVisibility: "hidden",

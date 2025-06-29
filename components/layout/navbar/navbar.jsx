@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -45,7 +46,7 @@ const Navbar = () => {
               src="/Logo.png"
               width={80}
               height={80}
-              alt="muhaimin-picture"
+              alt="logo"
             />
           </div>
 

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 import NAVBAR_LINKS from "@/constants/navbar";
-import AppLogo from "@/components/elements/AppLogo";
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const [showDropdown, setShowDropdown] = useState(null);
