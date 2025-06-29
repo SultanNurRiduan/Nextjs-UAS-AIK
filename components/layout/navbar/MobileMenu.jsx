@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -30,16 +31,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onClose]);
 
-return (
-    <div
+  return (
+    <motion.div
       ref={menuRef}
-      className={`fixed top-0 right-0 h-130 w-68 bg-white rounded-2xl shadow-lg md:hidden z-50 transform transition-transform duration-300
-    ${
-      isOpen
-        ? "translate-x-0 pointer-events-auto"
-        : "translate-x-full pointer-events-none"
-    }`}
->
+      initial={{ x: "100%" }}
+      animate={{ x: isOpen ? "0%" : "100%" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-0 right-0 h-auto w-72 bg-white rounded-l-2xl shadow-lg md:hidden z-[999999] pointer-events-auto"
+    >
       <div className="p-6 overflow-y-auto h-full space-y-4">
         {NAVBAR_LINKS.map((item, i) => (
           <div key={i}>
@@ -91,7 +90,7 @@ return (
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
