@@ -43,7 +43,7 @@ const Navbar = () => {
           {/* Logo mobile */}
           <div className="md:hidden flex">
             <Image
-              src="/Logo.png"
+              src="/logo.png"
               width={80}
               height={80}
               alt="logo"
