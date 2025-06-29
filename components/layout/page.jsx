@@ -30,7 +30,7 @@ const AppLayout = ({ children }) => {
       <Header />
       <Navbar />
       <LandingPage title={pageTitle} />
-      <div className="py-5">
+      <div className="px-2 py-5">
         <main>{children}</main>
       </div>
       <Footer />
