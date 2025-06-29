@@ -30,15 +30,16 @@ const MobileMenu = ({ isOpen, onClose }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onClose]);
 
-  return (
-    
+return (
     <div
       ref={menuRef}
-      className={`fixed top-0 right-0 h-130 w-68 bg-white rounded-2xl shadow-lg md:hidden z-50 transform ${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      } transition-transform duration-300`}
-    >
-      
+      className={`fixed top-0 right-0 h-130 w-68 bg-white rounded-2xl shadow-lg md:hidden z-50 transform transition-transform duration-300
+    ${
+      isOpen
+        ? "translate-x-0 pointer-events-auto"
+        : "translate-x-full pointer-events-none"
+    }`}
+>
       <div className="p-6 overflow-y-auto h-full space-y-4">
         {NAVBAR_LINKS.map((item, i) => (
           <div key={i}>
